@@ -1,0 +1,16 @@
+import graphic.*;
+import java.awt.Point;
+
+
+public class Test {
+
+	public static void main(String[] args){
+		Window fenetre = new Window(1000,1000, "Fenetre");
+		Point p1 = new Point(0,0);
+		Point p2 = new Point(500,500);
+		Point p3 = new Point(500,100);
+		fenetre.plotLine(p1,p2,"blue");
+		fenetre.plotLine(p2,p3);
+		fenetre.plotLine(p3,p1,"red");
+	}
+}
