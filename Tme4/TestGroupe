@@ -1,0 +1,56 @@
+package exo4;
+
+//import java.util.Random;
+
+
+public class TestGroupe {
+	
+	public static void main(String[] args) {
+		
+	Thread[] groupes = new Thread[10];
+	Salle salle = new Salle(50,50);
+	//Random gen = new Random(10);
+	
+	for(int i=0;i<groupes.length -1; i++) {
+		//int alea = gen.nextInt();
+		groupes[i] = new Thread(new Groupe(27,salle));
+	}
+	
+	Groupe dernierGroupe = new Groupe(27,salle);
+	dernierGroupe.cancelAll();
+	
+	groupes[groupes.length-1] = new Thread(dernierGroupe); 
+	
+	
+	
+	for(int i=0; i< groupes.length; i++) {
+		groupes[i].start();
+	}
+	//System.out.println(salle);
+	
+	try {
+		for(int i=0; i< groupes.length; i++) {
+			groupes[i].join();
+		}
+	}catch(InterruptedException e) {
+		System.out.println(e.getMessage());
+	}
+	finally {
+		System.out.println(salle);
+	}
+	
+	int placesNonLibres = 0;
+	
+	for(int i=0; i< salle.getNbRangs(); i++) {
+		for(int j=0; j< salle.getNbPlacesParRang(); j++) {
+			if(salle.getPlace(i, j) == false) {
+				placesNonLibres+= 1;
+			}
+		}
+	}
+	
+	System.out.println(placesNonLibres == (27*9));
+	
+	
+}
+}
